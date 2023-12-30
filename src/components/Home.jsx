@@ -1,9 +1,10 @@
 import React from 'react'
+import Rgister from './Register';
 
 const Home = () => {
   return (
     <div>
-        Home
+        <Rgister />
     </div>
   )
 }
