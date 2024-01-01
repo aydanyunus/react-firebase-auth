@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Register = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confPasswordRef = useRef();
+  const { signup } = useAuth();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    await signup(
+      emailRef.current.value,
+      passwordRef.current.value,
+      confPasswordRef.current.value
+    );
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full">
       <h1 className="text-4xl font-medium text-gray-700 mb-9">Sign Up</h1>
-      <form className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4">
+      <form
+        className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4"
+        onSubmit={handleRegister}
+      >
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -19,6 +37,7 @@ const Register = () => {
             type="email"
             placeholder="Email"
             required
+            ref={emailRef}
           />
         </div>
         <div className="mb-6">
@@ -34,6 +53,7 @@ const Register = () => {
             type="password"
             placeholder="Password"
             required
+            ref={passwordRef}
           />
         </div>
         <div className="mb-6">
@@ -49,6 +69,7 @@ const Register = () => {
             type="password"
             placeholder="Password Confirmation"
             required
+            ref={confPasswordRef}
           />
         </div>
         <div className="flex items-center justify-between">
@@ -62,7 +83,9 @@ const Register = () => {
 
         <p className="mt-4 text-gray-700 font-medium text-base">
           Already have an account?
-          <Link to="/login" className="ml-1 underline">Log In</Link>
+          <Link to="/login" className="ml-1 underline">
+            Log In
+          </Link>
         </p>
       </form>
     </div>
@@ -70,4 +93,3 @@ const Register = () => {
 };
 
 export default Register;
-

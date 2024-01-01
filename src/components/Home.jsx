@@ -1,10 +1,10 @@
 import React from 'react'
-import Rgister from './Register';
+import Register from './Register';
 
 const Home = () => {
   return (
     <div>
-        <Rgister />
+        <Register />
     </div>
   )
 }
