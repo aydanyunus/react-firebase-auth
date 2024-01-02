@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -7,11 +7,18 @@ const Login = () => {
   const passwordRef = useRef();
   const { login } = useAuth();
   const navigate = useNavigate()
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    await login(emailRef.current.value, passwordRef.current.value);
-    navigate('/')
+
+    try {
+      setError('')
+      await login(emailRef.current.value, passwordRef.current.value);
+      navigate('/')
+    } catch (error) {
+      setError('Failed to log in')
+    }
   };
 
   return (
@@ -21,6 +28,7 @@ const Login = () => {
         className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4"
         onSubmit={handleLogin}
       >
+        {error && <div className="bg-red-200 mb-4 text-red-600 text-sm font-medium p-3 rounded-md">{error}</div>}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

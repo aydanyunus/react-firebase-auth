@@ -8,7 +8,7 @@ const Home = () => {
 
   const handleLogout = async (e)=> {
     e.preventDefault();
-    await logout;
+    await logout();
     navigate('/login')
   }
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -7,14 +7,25 @@ const Register = () => {
   const passwordRef = useRef();
   const confPasswordRef = useRef();
   const { signup } = useAuth();
+  const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    await signup(
-      emailRef.current.value,
-      passwordRef.current.value,
-      confPasswordRef.current.value
-    );
+
+    if (passwordRef.current.value !== confPasswordRef.current.value) {
+      return setError("Passwords do not match");
+    }
+    try {
+      setError("");
+
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        confPasswordRef.current.value
+      );
+    } catch (error) {
+      setError("Failed to sign up");
+    }
   };
 
   return (
@@ -23,7 +34,8 @@ const Register = () => {
       <form
         className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4"
         onSubmit={handleRegister}
-      >
+        >
+        {error && <div className="bg-red-200 mb-4 text-red-600 text-sm font-medium p-3 rounded-md">{error}</div>}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
