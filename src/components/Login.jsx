@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const emailRef = useRef();
@@ -69,7 +69,14 @@ const Login = () => {
             Log In
           </button>
         </div>
+        <p className="mt-4 text-gray-700 font-medium text-base">
+          Need an account?
+          <Link to="/register" className="ml-1 underline">
+            Sign Up
+          </Link>
+        </p>
       </form>
+     
     </div>
   );
 };
