@@ -4,6 +4,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import AuthProvider from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path="/update-profile" element={<UpdateProfile />} />
           </Route>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
