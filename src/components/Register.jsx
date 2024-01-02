@@ -18,7 +18,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full">
       <h1 className="text-4xl font-medium text-gray-700 mb-9">Sign Up</h1>
       <form
         className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4"

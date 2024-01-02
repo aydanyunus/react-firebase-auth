@@ -1,10 +1,26 @@
-import React from "react";
+import React, {useRef} from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login } = useAuth();
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await login(emailRef.current.value, passwordRef.current.value);
+    navigate('/')
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full">
       <h1 className="text-4xl font-medium text-gray-700 mb-9">Log In</h1>
-      <form className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4">
+      <form
+        className="bg-white shadow-2xl rounded px-8 pt-6 pb-8 mb-4 w-2/4"
+        onSubmit={handleLogin}
+      >
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -18,6 +34,7 @@ const Login = () => {
             type="email"
             placeholder="Email"
             required
+            ref={emailRef}
           />
         </div>
         <div className="mb-6">
@@ -33,6 +50,7 @@ const Login = () => {
             type="password"
             placeholder="Password"
             required
+            ref={passwordRef}
           />
         </div>
         <div className="flex items-center justify-between">
